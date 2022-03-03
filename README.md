@@ -16,4 +16,8 @@ Q1 folder is the `Hello World` program.
 
 Q2 folder is `getting input from stdin` program.
 
-And finally, Q3 is `mathematical computations` program. Plus, we have done the extra part! So make sure to check it out!
+And finally, Q3 is `mathematical computations` program. Plus, we have done the extra part!
+
+- If first operand is divided by zero, you will be shown "Infinity" but the program still works!
+
+- `Prime Command` will print every single Prime number lower than the given number, regardless whether it is Prime or not.
