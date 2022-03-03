@@ -34,22 +34,22 @@ public class Cal {
                     if(PCheck == 1) {
                         System.out.printf("'%.0f' is not Prime Number", Op1);
                         System.out.println("");
-                        System.out.println("Previous Prime Numbers :");
-                        for(int i = 2; i < Op1; i++){
-                            int Check = 0;
-                            for(int j = 2; j < i; j++){
-                                if(i % j == 0)
-                                    Check = 1;
-                            }
-                            if(Check == 0) {
-                                System.out.printf("%d", i);
-                                System.out.println("");
-                            }
-                        }
                     }
                     else {
                         System.out.printf("'%.0f' is a Prime Number", Op1);
                         System.out.println("");
+                    }
+                    System.out.println("Previous Prime Numbers :");
+                    for(int i = 2; i < Op1; i++){
+                        int Check = 0;
+                        for(int j = 2; j < i; j++){
+                            if(i % j == 0)
+                                Check = 1;
+                        }
+                        if(Check == 0) {
+                            System.out.printf("%d", i);
+                            System.out.println("");
+                        }
                     }
                     break;
                 case "Add":
