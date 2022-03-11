@@ -42,4 +42,8 @@ public class Course {
     public String getName(){
         return name;
     }
+    // credit getter
+    public int getCredit(){
+        return credit;
+    }
 }

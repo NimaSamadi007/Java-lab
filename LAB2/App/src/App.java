@@ -10,21 +10,30 @@ public class App {
         Course course1 = new Course("Linear Algebra", "Sadeghi", "mathematic", 4, "25123");
         Course course2 = new Course("General Physics1", "Tabatabaee", "physics", 3, "37712");
         
-        stu1.addCourse(course1);
-        stu1.addCourse(course2);
+        stu1.addCourse(course1, 20.0f);
+        stu1.addCourse(course2, 12.7f);
         
-        stu2.addCourse(course2);
+        stu2.addCourse(course2, 15.7f);
 
-        stu3.addCourse(course1);
+        stu3.addCourse(course1, 18.5f);
 
-        stu4.addCourse(course1);
-        stu4.addCourse(course2);
+        stu4.addCourse(course1, 19.7f);
+        stu4.addCourse(course2, 14.8f);
 
         stu1.printInfo();
+        stu1.printAverage();
+
         stu2.printInfo();
+        stu2.printAverage();
+
         stu3.printInfo();
+        stu3.printAverage();
+
         stu4.printInfo();
+        stu4.printAverage();
+        
         System.out.println("-----------------");
+        
         course1.printInfo();
         course2.printInfo();
         System.out.println("-----------------");
