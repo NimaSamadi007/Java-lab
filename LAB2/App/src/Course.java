@@ -39,8 +39,21 @@ public class Course {
         new_registered_students[i] = new_student;
 
         registered_students = new_registered_students;        
+        System.out.println("List of registered students updated");
+    }
+    // remove student from the list of registered students
+    public void removeStudent(Student student){
+        Student[] new_registered_students = new Student[registered_students.length-1];
+
+        int index = 0;
+        for(int i = 0; i < registered_students.length; i++)
+            if(! registered_students[i].getStudentNum().equals(student.getStudentNum())) // if this is not the given student, keep him/her
+                new_registered_students[index++] = registered_students[i];
+        
+        registered_students = new_registered_students;
         System.out.println("List of registered students updated!");
     }
+
     public String getCourseCode(){
         return course_code;
     }

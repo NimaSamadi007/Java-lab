@@ -50,19 +50,31 @@ public class Student{
         grades = new_grades;
 
         // add this student to the list of registered students in course object
-        System.out.println("List of courses updated!");
+        System.out.println("List of courses updated");
         registered_courses[i].addStudent(this);
     }
     // method for removing a course from the list of registerd courses
     // also remove student from that course's students list
-    public void removeCourse(Course course){
+    public void removeCourse(int course_index){
         Course[] new_registered_courses = new Course[registered_courses.length - 1];
         float[] new_grades = new float[grades.length - 1];
-        int index;
-        // TODO: first check if student have the course then remove it
-        // for (index = 0; index < registered_courses.length; index++);
+        
+        // remove course from registered list
+        int index = 0;
+        for (int i = 0; i < registered_courses.length; i++){
+            if (i != course_index){ // keep this course
+                new_registered_courses[index] = registered_courses[i];
+                new_grades[index] = grades[i];
+                ++index;
+            }
+        }
 
+        System.out.println("List of courses updated");
+        // now remove student from the course's list
+        registered_courses[course_index].removeStudent(this);
 
+        registered_courses = new_registered_courses;
+        grades = new_grades;
     }
 
     // calculating student's average method

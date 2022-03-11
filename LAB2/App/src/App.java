@@ -6,16 +6,16 @@ public class App {
         Student[] students = new Student[10];
 
         // initial 10 random students
-        students[0] = new Student("Nima", "Samadi", "97101010", "001213", "Electrical Enginnering");
-        students[1] = new Student("Ali", "Yousefi", "97101020", "002781", "Computer Enginnering");
-        students[2] = new Student("Farzaneh", "Moosavi", "97101030", "003791", "Industrial Enginnering");
-        students[3] = new Student("Asghar", "Abbasi", "97101040", "007581", "Electrical Enginnering");
-        students[4] = new Student("Mohammad", "Goli", "97101050", "006489", "Electrical Enginnering");
-        students[5] = new Student("Sara", "Salabati", "97101060", "006813", "Polymer Engineering");
-        students[6] = new Student("Mahsa", "Safari", "97201010", "121315", "Industrial Enginnering");
-        students[7] = new Student("Taher", "Abazari", "97301040", "017591", "Mechanical Enginnering");
-        students[8] = new Student("Gholam", "Gholami", "97102040", "134679", "Chemistry Enginnering");
-        students[9] = new Student("Atena", "pourmohammad", "98151040", "000213", "Chemistry Enginnering");
+        students[0] = new Student("Nima", "Samadi", "001213", "97101010", "Electrical Enginnering");
+        students[1] = new Student("Ali", "Yousefi", "002781", "97101020", "Computer Enginnering");
+        students[2] = new Student("Farzaneh", "Moosavi", "003791", "97101030", "Industrial Enginnering");
+        students[3] = new Student("Asghar", "Abbasi", "007581", "97101040", "Electrical Enginnering");
+        students[4] = new Student("Mohammad", "Goli", "006489", "97101050", "Electrical Enginnering");
+        students[5] = new Student("Sara", "Salabati", "006813", "97101060", "Polymer Engineering");
+        students[6] = new Student("Mahsa", "Safari", "121315", "97201010", "Industrial Enginnering");
+        students[7] = new Student("Taher", "Abazari", "017591", "97301040", "Mechanical Enginnering");
+        students[8] = new Student("Gholam", "Gholami", "134679", "97102040", "Chemistry Enginnering");
+        students[9] = new Student("Atena", "pourmohammad", "000213", "98151040", "Chemistry Enginnering");
         
         // array of courses - 3 courses available
         Course[] courses = new Course[3];
@@ -90,8 +90,8 @@ public class App {
     }
     public static int isStudentExist(Student[] students, String username, String password){
         for (int i = 0; i < students.length; i++)
-            if (students[i].getStudentId().equals(username))
-                if (students[i].getStudentNum().equals(password))
+            if (students[i].getStudentNum().equals(username))
+                if (students[i].getStudentId().equals(password))
                     return i;
                 else
                     return -1; // wrong password
@@ -101,6 +101,7 @@ public class App {
     public static void studentLoginSession(Scanner scn_obj, Student[] students, Course[] courses, int student_index){
         System.out.println("/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\");
         String command, course_code;
+        boolean flag;
         main_loop: while(true){
             System.out.println("Enter one of the following options: ");
             System.out.printf("1) add course \n2) remove course \n3) get average \n4) display information \n0) quit \n");
@@ -108,12 +109,12 @@ public class App {
             command = scn_obj.nextLine();
             
             switch(command){
-                case "0":
+                case "0": //quit command
                     System.out.println("Goodbye " + students[student_index].getName() + " !");
                     break main_loop;
-                case "1":
+                case "1": // add course
                     System.out.print("Enter course code: ");
-                    boolean flag = false;
+                    flag = false;
                     course_code = scn_obj.nextLine();
                     for(int i = 0; i < courses.length; i++)
                         if (courses[i].getCourseCode().equals(course_code)){ // if course code exists
@@ -130,17 +131,26 @@ public class App {
                     if (!flag)
                         System.out.println("Course code not found!");
                     break;
-                case "2":
+                case "2": // remove course
+                    flag = false;
                     System.out.print("Enter course code: ");
                     course_code = scn_obj.nextLine();
-                    int course_index = students[student_index].isCourseExist(course_code);
-                    // TODO: must check if course code exists in course code list and
-                    // if student has it 
+                    for(int i = 0; i < courses.length; i++)
+                        if (courses[i].getCourseCode().equals(course_code)){ // check if course code exists in list of courses
+                            int course_index = students[student_index].isCourseExist(course_code); // check if student has the course
+                            if (course_index >= 0){
+                                students[student_index].removeCourse(course_index);
+                                System.out.println("Successfully removed!");
+                                flag = true;
+                            }
+                        }
+                    if (!flag)
+                        System.out.println("Course code not found!");
                     break;
-                case "3":
+                case "3": // get average 
                     students[student_index].printAverage();
                     break;
-                case "4":
+                case "4": // print information 
                     students[student_index].printInfo();
                     break;
                 default:
