@@ -25,7 +25,7 @@ public class Course {
         int i;
         for (i = 0; i < registered_students.length - 1; i++)
             System.out.print(registered_students[i].getName() + ", ");
-        if ( i != 0 )
+        if ( registered_students.length >= 1 )
             System.out.println(registered_students[i].getName() + "]");
         else // no student found
             System.out.println(" ]");
@@ -40,6 +40,9 @@ public class Course {
 
         registered_students = new_registered_students;        
         System.out.println("List of registered students updated!");
+    }
+    public String getCourseCode(){
+        return course_code;
     }
     // course name getter
     public String getName(){

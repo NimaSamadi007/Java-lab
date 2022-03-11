@@ -28,13 +28,14 @@ public class Student{
         int i;
         for (i = 0; i < registered_courses.length - 1; i++)
             System.out.print(registered_courses[i].getName() + " : " + grades[i] + ", ");
-        if ( i != 0 )
+        if (registered_courses.length >= 1)
             System.out.println(registered_courses[i].getName() + " : " + grades[i] + "]");
         else // no course found
             System.out.println(" ]");
     }
     // method for adding a course the the list of registered courses
-    public void registerCourse(Course new_course, float grade){
+    // also adds student to that course's student list
+    public void registerCourse(Course new_course){
         Course[] new_registered_courses = new Course[registered_courses.length + 1];
         float[] new_grades = new float[grades.length + 1];
         int i;
@@ -43,22 +44,29 @@ public class Student{
             new_grades[i] = grades[i];
         }
         new_registered_courses[i] = new_course;
-        new_grades[i] = grade;
+        new_grades[i] = 0.0f; // default grade is zero unless instructor changes it
 
         registered_courses = new_registered_courses;
         grades = new_grades;
 
         // add this student to the list of registered students in course object
-        registered_courses[i].addStudent(this);
-
         System.out.println("List of courses updated!");
-        System.out.println("------------------------");
+        registered_courses[i].addStudent(this);
     }
-    public String getName(){
-        return name + " " + last_name;
+    // method for removing a course from the list of registerd courses
+    // also remove student from that course's students list
+    public void removeCourse(Course course){
+        Course[] new_registered_courses = new Course[registered_courses.length - 1];
+        float[] new_grades = new float[grades.length - 1];
+        int index;
+        // TODO: first check if student have the course then remove it
+        // for (index = 0; index < registered_courses.length; index++);
+
+
     }
+
     // calculating student's average method
-    public double calAvg(){
+    private double calAvg(){
         double total_grade = 0.0;
         int total_credit = 0;
         int current_course_credit;
@@ -69,9 +77,26 @@ public class Student{
         }
         return (total_grade / total_credit);
     }
+    // checks if a course already exists in the list of registered courses
+    public int isCourseExist(String course_code){
+        for(int i = 0; i < registered_courses.length; i++)
+            if(registered_courses[i].getCourseCode().equals(course_code))
+                return i;
+        return -1;
+    }
     // print student average:
     public void printAverage(){
         System.out.printf("%s %s's average grade is %.2f \n", name, last_name, this.calAvg());
+    }
+    // some getters
+    public String getStudentId(){
+        return id;
+    }
+    public String getStudentNum(){
+        return student_num;
+    }
+    public String getName(){
+        return name + " " + last_name;
     }
 
 }

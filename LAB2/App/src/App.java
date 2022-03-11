@@ -57,6 +57,24 @@ public class App {
                     courses = new_courses;
                     System.out.println("Succefully added!");
                     break;
+                case "3": // student login to add or remove courses    
+                    System.out.print("Enter your Username: ");
+                    String username = scn.nextLine();
+                    System.out.print("Enter your Password: ");
+                    String password = scn.nextLine();
+                    int status = isStudentExist(students, username, password);
+                    if (status == -2){
+                        System.out.println("Student doesn't exist!");
+                        break;
+                    }
+                    else if (status == -1){
+                        System.out.println("Wrong password!");
+                        break;
+                    }
+                    System.out.println("Successfully logged in!");
+                    studentLoginSession(scn, students, courses, status);
+                    System.out.println("Ending login session");
+                    break;
                 case "4":
                     printCourses(courses);
                     break;
@@ -70,6 +88,69 @@ public class App {
         }
         scn.close();
     }
+    public static int isStudentExist(Student[] students, String username, String password){
+        for (int i = 0; i < students.length; i++)
+            if (students[i].getStudentId().equals(username))
+                if (students[i].getStudentNum().equals(password))
+                    return i;
+                else
+                    return -1; // wrong password
+        
+        return -2; // username not found
+    }
+    public static void studentLoginSession(Scanner scn_obj, Student[] students, Course[] courses, int student_index){
+        System.out.println("/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\");
+        String command, course_code;
+        main_loop: while(true){
+            System.out.println("Enter one of the following options: ");
+            System.out.printf("1) add course \n2) remove course \n3) get average \n4) display information \n0) quit \n");
+            System.out.print("Command option number: ");
+            command = scn_obj.nextLine();
+            
+            switch(command){
+                case "0":
+                    System.out.println("Goodbye " + students[student_index].getName() + " !");
+                    break main_loop;
+                case "1":
+                    System.out.print("Enter course code: ");
+                    boolean flag = false;
+                    course_code = scn_obj.nextLine();
+                    for(int i = 0; i < courses.length; i++)
+                        if (courses[i].getCourseCode().equals(course_code)){ // if course code exists
+                            if (students[student_index].isCourseExist(course_code) >= 0){
+                                System.out.println("Course already exists!");
+                            }
+                            else{
+                                students[student_index].registerCourse(courses[i]);
+                                System.out.println("Successfully registered!");
+                            }
+                            flag = true;
+                            break;
+                        }
+                    if (!flag)
+                        System.out.println("Course code not found!");
+                    break;
+                case "2":
+                    System.out.print("Enter course code: ");
+                    course_code = scn_obj.nextLine();
+                    int course_index = students[student_index].isCourseExist(course_code);
+                    // TODO: must check if course code exists in course code list and
+                    // if student has it 
+                    break;
+                case "3":
+                    students[student_index].printAverage();
+                    break;
+                case "4":
+                    students[student_index].printInfo();
+                    break;
+                default:
+                    System.out.println("Unknowkn command!, try again");
+                    break;
+            }
+        }
+        System.out.println("/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\");
+    }
+
     // function to add new course:
     public static void addCourse(Scanner scn_obj, Course[] former_courses, Course[] new_courses){
         int i;
