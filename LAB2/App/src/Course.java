@@ -1,31 +1,34 @@
 public class Course {
     private String name;
-    private String master;
+    private String professor;
     private String faculty;
     private int credit;
-    private String course_num;
+    private String course_code;
     private Student[] registered_students;
 
     // Constructor:
-    public Course(String name, String master, String faculty, int credit, String course_num){
+    public Course(String name, String professor, String faculty, int credit, String course_code){
         this.name = name;
-        this.master = master;
+        this.professor = professor;
         this.faculty = faculty;
         this.credit = credit;
-        this.course_num = course_num;
+        this.course_code = course_code;
         this.registered_students = new Student[0];
     }
 
     // methods:
     public void printInfo(){
-        System.out.print("name: " + name + ", master: " + master +
+        System.out.print("name: " + name + ", professor: " + professor +
                          ", faculty: " + faculty+ ", credit: " + credit + 
-                         ", course number: " + course_num + ", registered students: [");
+                         ", course number: " + course_code + ", registered students: [");
         
         int i;
         for (i = 0; i < registered_students.length - 1; i++)
             System.out.print(registered_students[i].getName() + ", ");
-        System.out.println(registered_students[i].getName() + "]");
+        if ( i != 0 )
+            System.out.println(registered_students[i].getName() + "]");
+        else // no student found
+            System.out.println(" ]");
     }
     // add student to the list of registered students
     public void addStudent(Student new_student){

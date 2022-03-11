@@ -28,10 +28,13 @@ public class Student{
         int i;
         for (i = 0; i < registered_courses.length - 1; i++)
             System.out.print(registered_courses[i].getName() + " : " + grades[i] + ", ");
-        System.out.println(registered_courses[i].getName() + " : " + grades[i] + "]");
+        if ( i != 0 )
+            System.out.println(registered_courses[i].getName() + " : " + grades[i] + "]");
+        else // no course found
+            System.out.println(" ]");
     }
     // method for adding a course the the list of registered courses
-    public void addCourse(Course new_course, float grade){
+    public void registerCourse(Course new_course, float grade){
         Course[] new_registered_courses = new Course[registered_courses.length + 1];
         float[] new_grades = new float[grades.length + 1];
         int i;
