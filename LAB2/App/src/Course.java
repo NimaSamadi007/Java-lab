@@ -4,15 +4,17 @@ public class Course {
     private String faculty;
     private int credit;
     private String course_code;
+    private String password;
     private Student[] registered_students;
 
     // Constructor:
-    public Course(String name, String professor, String faculty, int credit, String course_code){
+    public Course(String name, String professor, String faculty, int credit, String course_code, String password){
         this.name = name;
         this.professor = professor;
         this.faculty = faculty;
         this.credit = credit;
         this.course_code = course_code;
+        this.password = password;
         this.registered_students = new Student[0];
     }
 
@@ -53,15 +55,30 @@ public class Course {
         registered_students = new_registered_students;
         System.out.println("List of registered students updated!");
     }
+    // method for grading each student
+    public boolean gradeStudent(String stu_num, float grade){
+        for (int i = 0; i < registered_students.length; i++)
+            if (registered_students[i].getStudentNum().equals(stu_num)){
+                registered_students[i].gradeCourse(this, grade);
+                return true;
+            }
+        return false;
+    }
 
+    // method for checking if the input password is correct
+    public boolean checkPassword(String in_password){
+        if (this.password.equals(in_password))
+            return true;
+        else
+            return false;
+    }
+    // getters:
     public String getCourseCode(){
         return course_code;
     }
-    // course name getter
     public String getName(){
         return name;
     }
-    // credit getter
     public int getCredit(){
         return credit;
     }

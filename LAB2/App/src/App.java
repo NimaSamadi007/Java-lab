@@ -5,7 +5,7 @@ public class App {
         // array of students - initial size is 10
         Student[] students = new Student[10];
 
-        // initial 10 random students
+        // initialize 10 random students
         students[0] = new Student("Nima", "Samadi", "001213", "97101010", "Electrical Enginnering");
         students[1] = new Student("Ali", "Yousefi", "002781", "97101020", "Computer Enginnering");
         students[2] = new Student("Farzaneh", "Moosavi", "003791", "97101030", "Industrial Enginnering");
@@ -20,9 +20,9 @@ public class App {
         // array of courses - 3 courses available
         Course[] courses = new Course[3];
 
-        courses[0] = new Course("Linear Algebra", "Sadeghi", "mathematic", 4, "251234");
-        courses[1] = new Course("General Physics1", "Tabatabaee", "physics", 3, "377121");
-        courses[2] = new Course("Islamic Thoughts1", "Norozi", "theology", 2, "751278");
+        courses[0] = new Course("Linear Algebra", "Sadeghi", "mathematic", 4, "251234", "1234");
+        courses[1] = new Course("General Physics1", "Tabatabaee", "physics", 3, "377121", "1234");
+        courses[2] = new Course("Islamic Thoughts1", "Norozi", "theology", 2, "751278", "1234");
 
         // Now main program begins:
         Scanner scn = new Scanner(System.in);
@@ -31,7 +31,7 @@ public class App {
         main_loop: while(true){
             System.out.println("----------------------------------");
             System.out.println("Available options are:"); 
-            System.out.printf("1) add student \n2) add course \n3) student login \n4) print courses \n5) print studetns \n0) quit \n");
+            System.out.printf("1) add student \n2) add course \n3) student login \n4) print courses \n5) print students \n6) grade student \n0) quit \n");
             System.out.println("----------------------------------");
             System.out.print("Enter command number: ");
             command = scn.nextLine();
@@ -81,12 +81,44 @@ public class App {
                 case "5":
                     printStudents(students);
                     break;
+                case "6":
+                    System.out.print("Enter the course code: ");
+                    String course_code = scn.nextLine();
+                    System.out.print("Enter password: ");
+                    String in_password = scn.nextLine();
+                    // check if course exists and password is currect
+                    int index = isCourseExist(courses, course_code, in_password);
+                    if (index == -1)
+                        System.out.println("Wrong password!");
+                    else if (index == -2)
+                        System.out.println("Course dosen't exist!");
+                    else{
+                        System.out.print("Enter student number: ");
+                        String stu_num = scn.nextLine();
+                        System.out.print("Enter grade: ");
+                        String grade = scn.nextLine();
+                        boolean succ = courses[index].gradeStudent(stu_num, Float.parseFloat(grade));
+                        if (succ)
+                            System.out.println("student's grade updated successfully");
+                        else
+                            System.out.println("Student not found!");
+                    }
+                    break;
                 default:
                     System.out.println("Unknown command! Try again....");
                     break;
             }
         }
         scn.close();
+    }
+    public static int isCourseExist(Course[] courses, String course_code, String password){
+        for (int i = 0; i < courses.length; i++)
+            if (courses[i].getCourseCode().equals(course_code))
+                if (courses[i].checkPassword(password))
+                    return i;
+                else
+                    return -1;
+        return -2;
     }
     public static int isStudentExist(Student[] students, String username, String password){
         for (int i = 0; i < students.length; i++)
@@ -177,8 +209,10 @@ public class App {
         String credit= scn_obj.nextLine();
         System.out.print("course code: ");
         String course_code = scn_obj.nextLine();
+        System.out.print("password: ");
+        String password = scn_obj.nextLine();
 
-        new_courses[i] = new Course(name, professor, faculty, Integer.parseInt(credit), course_code);
+        new_courses[i] = new Course(name, professor, faculty, Integer.parseInt(credit), course_code, password);
     }
 
     // function to add new student

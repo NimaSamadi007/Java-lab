@@ -96,6 +96,13 @@ public class Student{
                 return i;
         return -1;
     }
+    // grade the course
+    public void gradeCourse(Course course, float grade){
+        for (int i = 0; i < registered_courses.length; i++)
+            if (registered_courses[i] == course)
+                grades[i] = grade;
+    }
+
     // print student average:
     public void printAverage(){
         System.out.printf("%s %s's average grade is %.2f \n", name, last_name, this.calAvg());
