@@ -21,3 +21,10 @@ And finally, Q3 is `mathematical computations` program. Plus, we have done the e
 - If first operand is divided by zero, you will be shown "Infinity" but the program still works!
 
 - `Prime Command` will print every single Prime number lower than the given number, regardless whether it is Prime or not.
+
+## LAB2:
+This folder contains two sub folder namely `App` and `jaba2`. The `App` folder is my (Nima Samadi) implementation of this labarotary. It contains both mandatory and extra parts of this lap. 
+
+`jaba2` folder is Milad Saadat's implementations of the lab. It also contains extra parts of the lab along with the mandatory ones.
+
+The codes are pretty self-explanatory and easy to understand :)
