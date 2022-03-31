@@ -28,3 +28,10 @@ This folder contains two sub folder namely `App` and `jaba2`. The `App` folder i
 `jaba2` folder is Milad Saadat's implementations of the lab. It also contains extra parts of the lab along with the mandatory ones.
 
 The codes are pretty self-explanatory and easy to understand :)
+
+## LAB3:
+All classes are in the `src` folder and executable files are in `out` folder. To test the performance of the code, we have used the following tree:
+
+![](./Images/1.png)
+
+The code is figuring out if there is a path between node 0 and 3 or vice versa. 
