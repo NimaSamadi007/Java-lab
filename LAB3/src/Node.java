@@ -19,11 +19,11 @@ public class Node {
         }
     }
 
-    int GetInDegree(Node NewNode) {
+    int GetInDegree() {
         int InDeg = 0;
         for(int i = 0; i < Edge_AL.size(); i++) {
             if (Edge_AL.get(i).EdgeType == 'D') {
-                if(Edge_AL.get(i).Node[0] == NewNode) {
+                if(Edge_AL.get(i).Node[0] == this) {
                     InDeg++;
                 }
             }
@@ -31,17 +31,17 @@ public class Node {
                 InDeg++;
             }
             else {
-                System.out.println("Error !");
+                System.out.println("Node Type Error !");
             }
         }
         return InDeg;
     }
 
-    int GetOutDegree(Node NewNode) {
+    int GetOutDegree() {
         int OutDeg = 0;
         for(int i = 0; i < Edge_AL.size(); i++) {
             if (Edge_AL.get(i).EdgeType == 'D') {
-                if(Edge_AL.get(i).Node[1] == NewNode) {
+                if(Edge_AL.get(i).Node[1] == this) {
                     OutDeg++;
                 }
             }
@@ -49,7 +49,7 @@ public class Node {
                 OutDeg++;
             }
             else {
-                System.out.println("Error !");
+                System.out.println("Node Type Error !");
             }
         }
         return OutDeg;

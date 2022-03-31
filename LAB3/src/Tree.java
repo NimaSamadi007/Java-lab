@@ -11,19 +11,27 @@ public class Tree extends DirectedGraph {
     */
     void AddEdge(Edge NewEdge) {
         if((NewEdge.EdgeType == 'D') && (NewEdge.Node[0] != NewEdge.Node[1])) {
-            if (Edge_AL.contains(NewEdge.Node[0])) {
-                Node_AL.add(NewEdge.Node[0]);
-                Node_AL.add(NewEdge.Node[1]);
+            if (Node_AL.contains(NewEdge.Node[0])) {
+                if(!Node_AL.contains(NewEdge.Node[1]))
+                    Node_AL.add(NewEdge.Node[1]);
                 Edge_AL.add(NewEdge);
+                // System.out.println("Added Node 1 only");
             }
-            if (Edge_AL.contains(NewEdge.Node[1])) {
+            else if (Node_AL.contains(NewEdge.Node[1])) {
+                if(!Node_AL.contains(NewEdge.Node[0]))
+                    Node_AL.add(NewEdge.Node[0]);
+                Edge_AL.add(NewEdge);
+                // System.out.println("Added Node 0 only");
+            }
+            else {
                 Node_AL.add(NewEdge.Node[0]);
                 Node_AL.add(NewEdge.Node[1]);
                 Edge_AL.add(NewEdge);
+                // System.out.println("Added 2 Nodes");
             }
         }
         else {
-            System.out.println("Error !");
+            System.out.println("Add Edge Error !");
         }
     }
 
@@ -45,7 +53,7 @@ public class Tree extends DirectedGraph {
                 return Edge_AL.get(i).Node[1];
             }
         }
-        System.out.println("GetFather - Error !");
+        // System.out.println("GetFather - Error !");
         return null;
     }
 
@@ -90,7 +98,12 @@ public class Tree extends DirectedGraph {
             if(Node1 == Node2)
                 return Path;
             else
-                Node1 = GetFather(Node1);
+                Node1 = GetFather(Node1);   
+        }
+
+        if(Node1 == Node2){
+            Path.add(Node1);
+            return Path;
         }
 
         while(GetFather(Node2) != null){
@@ -99,6 +112,11 @@ public class Tree extends DirectedGraph {
                 return Path;
             else
                 Node2 = GetFather(Node2);
+        }
+
+        if(Node1 == Node2){
+            Path.add(Node2);
+            return Path;
         }
 
         System.out.println("No Path Found !");
