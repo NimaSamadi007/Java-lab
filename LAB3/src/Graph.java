@@ -22,9 +22,9 @@ public class Graph {
 
     // Adds a new Edge to the graph
     void AddEdge(Edge NewEdge) {
-        if(!Edge_AL.contains(NewEdge.Node[0]))
+        if(!Node_AL.contains(NewEdge.Node[0]))
             Node_AL.add(NewEdge.Node[0]);
-        if(!Edge_AL.contains(NewEdge.Node[1]))
+        if(!Node_AL.contains(NewEdge.Node[1]))
             Node_AL.add(NewEdge.Node[1]);
         Edge_AL.add(NewEdge);
     }

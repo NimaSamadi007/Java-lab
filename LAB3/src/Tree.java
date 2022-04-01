@@ -96,30 +96,40 @@ public class Tree extends DirectedGraph {
         while(GetFather(Node1) != null){
             Path.add(Node1);
             if(Node1 == Node2)
-                return Path;
+                return reversePath(Path);
             else
                 Node1 = GetFather(Node1);   
         }
 
         if(Node1 == Node2){
             Path.add(Node1);
-            return Path;
+            return reversePath(Path);
         }
 
         while(GetFather(Node2) != null){
             Path.add(Node2);
             if(Node1 == Node2)
-                return Path;
+                return reversePath(Path);
             else
                 Node2 = GetFather(Node2);
         }
 
         if(Node1 == Node2){
             Path.add(Node2);
-            return Path;
+            return reversePath(Path);
         }
 
-        System.out.println("No Path Found !");
         return null;
     }
+
+
+    private ArrayList<Node> reversePath(ArrayList<Node> path){
+        // reverses the path and returns reversed array
+        ArrayList<Node> reversedPath = new ArrayList<Node>();
+        for (int i = path.size() - 1; i >= 0; i--)
+            reversedPath.add(path.get(i));
+        
+        return reversedPath;
+    }
+
 }
