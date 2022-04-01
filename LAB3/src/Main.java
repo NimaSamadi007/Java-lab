@@ -112,10 +112,10 @@ public class Main {
         // remove edge 2:
         G.RemoveEdge(edges2[3]);
         
-        // node_edge3 = edges2[3].Getter();
-        // System.out.println("Edge 3 nodes: " + 
-        //                     node_edge3[0] + " - " + 
-        //                     node_edge3[1]);
+        node_edge3 = edges2[3].Getter();
+        System.out.println("Edge 3 nodes: " + 
+                            node_edge3[0] + " - " + 
+                            node_edge3[1]);
         
         all_edges = G.GetEdges();
         for (int i = 0; i < all_edges.size(); i++)
