@@ -35,3 +35,9 @@ All classes are in the `src` folder and executable files are in `out` folder. To
 ![](./Images/1.png)
 
 The code is figuring out if there is a path between node 0 and 3 or vice versa. 
+
+Also we have tested the `DirectedGraph` class. The following graph has been tested:
+
+![](./Images/2.png)
+
+All tests are done in `Main.java` class.
