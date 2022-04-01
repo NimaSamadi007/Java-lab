@@ -2,7 +2,9 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        /*
+        System.out.println("\n--------------------------");
+        System.out.println("Testing Tree");
+
         // graph nodes:
         Node[] nodes = new Node[7];
         for (int i = 0; i < 7; i++)
@@ -53,8 +55,9 @@ public class Main {
         // there is no path between node 4 and 3
         ArrayList<Node> path2 = T.GetPath(nodes[4], nodes[3]);
         pathPrinter(path2);
-        */
-        System.out.println("--------------------------");
+
+        System.out.println("\n--------------------------");
+        System.out.println("Testing Directed Graph");
         // Testing directed graph:
 
         Node[] nodes2 = new Node[4];
@@ -82,8 +85,7 @@ public class Main {
         nodes2[2].AddEdge(edges2[1]);
         nodes2[3].AddEdge(edges2[1]);
         nodes2[3].AddEdge(edges2[2]);
-        
-        
+                
         DirectedGraph G = new DirectedGraph();
         for (int i = 0; i < 5; i++)
             G.AddEdge(edges2[i]);
@@ -99,25 +101,37 @@ public class Main {
                             node_edge3[0] + " - " + 
                             node_edge3[1]);
 
-        Node[] node_edge4 = edges2[4].Getter();
-        System.out.println("Edge 4 nodes: " + 
-                            node_edge4[0] + " - " + 
-                            node_edge4[1]);
-
         ArrayList<Edge> all_edges = G.GetEdges();
+        System.out.print("List of all edges: ");
         for (int i = 0; i < all_edges.size(); i++)
             System.out.print(all_edges.get(i) + ", ");
         System.out.print("\n");
+
+        ArrayList<Edge> nodes0_edges = nodes2[0].GetEdges();
+        if (nodes0_edges != null){
+            System.out.print("Node 0 edges: ");
+            for (int i = 0; i < nodes0_edges.size(); i++)
+                System.out.print(nodes0_edges.get(i) + ", ");
+            System.out.print("\n");
+        }
+
+        System.out.println("edge3: " + edges2[3]);
+        edges2[3] = G.RemoveEdge(edges2[3]);
+        System.out.println("edge3 removed");
+        System.out.println("edge3: " + edges2[3]);
         
-        // remove edge 2:
-        G.RemoveEdge(edges2[3]);
-        
-        node_edge3 = edges2[3].Getter();
-        System.out.println("Edge 3 nodes: " + 
-                            node_edge3[0] + " - " + 
-                            node_edge3[1]);
-        
+        // checking if node0 and node1 has edge3
+        nodes0_edges = nodes2[0].GetEdges();
+        if (nodes0_edges != null){
+            System.out.print("Node 0 edges: ");
+            for (int i = 0; i < nodes0_edges.size(); i++)
+                System.out.print(nodes0_edges.get(i) + ", ");
+            System.out.print("\n");
+        }
+
+
         all_edges = G.GetEdges();
+        System.out.print("List of all edges: ");
         for (int i = 0; i < all_edges.size(); i++)
             System.out.print(all_edges.get(i) + ", ");
         System.out.print("\n");

@@ -1,6 +1,17 @@
 public class DirectedGraph extends Graph{
 
-
+    DirectedEdge RemoveEdge(DirectedEdge EdgeNumber) {
+        if(Edge_AL.contains(EdgeNumber)){
+            Edge_AL.remove(EdgeNumber);
+            EdgeNumber.Node[0].Edge_AL.remove(EdgeNumber);
+            EdgeNumber.Node[1].Edge_AL.remove(EdgeNumber);
+            return null;   
+        }
+        else {
+            System.out.printf("This Edge is not a part of this graph yet\n");
+            return EdgeNumber;
+        }
+    }
 
     // Adds a new Edge to the directed graph
     void AddEdge(Edge NewEdge) {

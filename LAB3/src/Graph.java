@@ -33,6 +33,8 @@ public class Graph {
     void RemoveEdge(Edge EdgeNumber) {
         if(Edge_AL.contains(EdgeNumber)){
             Edge_AL.remove(EdgeNumber);
+            EdgeNumber.Node[0].Edge_AL.remove(EdgeNumber);
+            EdgeNumber.Node[1].Edge_AL.remove(EdgeNumber);
         }
         else {
             System.out.printf("This Edge is not a part of this graph yet\n");
