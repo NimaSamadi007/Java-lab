@@ -41,3 +41,11 @@ Also we have tested the `DirectedGraph` class. The following graph has been test
 ![](./Images/2.png)
 
 All tests are done in `Main.java` class.
+
+## LAB4:
+Just like previous labs, all codes are in the `src` folder and executables are in the `bin` folder. `App.java` file is used to test whole system. All 10 tests are provided in this file. `FileHandler.java` class is the main class to handle interactions with file and is used to contruct the tree. 
+
+Along with the give testcase, I tested the code with these two trees. Plus there are more tests to check if exceptions are handled correctly.
+
+|![](./Images/1.png)|![](./Images/3.png)|
+|:-------:|:-------:|
