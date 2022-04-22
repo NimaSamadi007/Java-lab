@@ -1,3 +1,4 @@
+package Tree;
 import java.util.ArrayList;
 
 public class Tree extends DirectedGraph {
@@ -9,7 +10,7 @@ public class Tree extends DirectedGraph {
         2. NewEdge Must not connect its enter node to its exit node.
         3. If a NewEdge is approved, both nodes and the edge itself are added to the tree.
     */
-    void AddEdge(Edge NewEdge) {
+    public void AddEdge(Edge NewEdge) {
         if((NewEdge.EdgeType == 'D') && (NewEdge.Node[0] != NewEdge.Node[1])) {
             if (Node_AL.contains(NewEdge.Node[0])) {
                 if(!Node_AL.contains(NewEdge.Node[1]))
@@ -47,7 +48,7 @@ public class Tree extends DirectedGraph {
     called Exit_Node, then every single Enter_Node with this Exit_
     Node are its Children.
      */
-    Node GetFather(Node NewNode) {
+    private Node GetFather(Node NewNode) {
         for(int i = 0; i < Edge_AL.size(); i++) {
             if(Edge_AL.get(i).Node[0] == NewNode) {
                 return Edge_AL.get(i).Node[1];
@@ -57,7 +58,7 @@ public class Tree extends DirectedGraph {
         return null;
     }
 
-    ArrayList<Node> GetChildren(Node NewNode) {
+    public ArrayList<Node> GetChildren(Node NewNode) {
         ArrayList<Node> Children = new ArrayList<Node>();
         for(int i = 0; i < Edge_AL.size(); i++) {
             if(Edge_AL.get(i).Node[0] == NewNode) {
@@ -78,7 +79,7 @@ public class Tree extends DirectedGraph {
     }
 
     // First node1 is always ancesstor of node2 if there is a path 
-    ArrayList<Node> GetPath(Node Node1, Node Node2) {
+    public ArrayList<Node> GetPath(Node Node1, Node Node2) {
         ArrayList<Node> Path = new ArrayList<Node>();
 
         while(GetFather(Node2) != null){

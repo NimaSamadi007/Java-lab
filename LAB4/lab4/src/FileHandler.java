@@ -3,12 +3,16 @@ import java.io.FileWriter;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.io.IOException;;
+import java.io.IOException;
+import MyExceptions.*;
+import Tree.*;
+
 
 public class FileHandler {
     private File fileptr;
     private File outFileptr;
-    private Scanner fileReader;
+    private FileWriter filerWriter;
+    private Scanner fileReader;    
     private String fileName;
     private ArrayList<String> edgeSectionLines;
     private ArrayList<String> findSectionLines;
@@ -18,25 +22,30 @@ public class FileHandler {
     private Tree T;
 
     // Constructor to initilize file name
-    public FileHandler(String inputFileName){
+    public FileHandler(String inputFileName, String outputFileName){
         edgeSectionLines = new ArrayList<String>();
         findSectionLines = new ArrayList<String>();
         fileName = inputFileName;
+        filerWriter = null;
         try{
+            // output file
+            outFileptr = new File(outputFileName);
+            outFileptr.createNewFile();
+            filerWriter = new FileWriter(outputFileName);
             // input file
             fileptr = new File(fileName);
             fileReader = new Scanner(fileptr);
-            // output file
-            outFileptr = new File("Path.txt");
-            outFileptr.createNewFile();
-        }  // #TODO: Raise exception when file cannot be found 
+        } 
         catch (FileNotFoundException err){
-            System.out.println("File not found!");
             err.printStackTrace();
+            writeToFile("File " + fileName + " not found!");
+            closeFile();
+            System.exit(1); // terminate program
         }
         catch (IOException err){
             System.out.println("Error while creating file!");
             err.printStackTrace();
+            System.exit(1); // terminate program
         }
     }
 
@@ -46,12 +55,25 @@ public class FileHandler {
             String data = fileReader.nextLine();
             if (findLineSeen) // we are reading find section
                 findSectionLines.add(data);
-            // #TODO: Raise exception when there is no fine directive
             else // we are reading edge section or find directive itself
                 if (data.equals("Find")) // we have reached fine line
                     findLineSeen = true; 
                 else
                     edgeSectionLines.add(data);                    
+        }
+        // if we didn't reach find directive in input file,
+        // raise error and exit
+        try{
+            if (findLineSeen == false){
+                FindDirectiveException findExc = new FindDirectiveException("No find directive found");
+                throw findExc;
+            }
+        } 
+        catch (FindDirectiveException err){
+            writeToFile("No find directive found!");
+            closeFile();
+            err.printStackTrace();
+            System.exit(1);
         }
     }
 
@@ -65,61 +87,73 @@ public class FileHandler {
     }
 
     public void findAllPath(){
-        //#TODO: Again check if find section array is not empty
         String[] splitedLine;
         String inode, fnode;
         int inodeIndx, fnodeIndx, nodeOnPathIndx;
-        FileWriter filerWriter = null;
+
+        // raise error if find section is empty
         try{
-            filerWriter = new FileWriter("Path.txt");
-        }
-        catch (IOException err){
-            System.out.println("Err occured!");
+            if (findSectionLines.size() == 0){ // empty find section
+                NullFindSection nullFind = new NullFindSection("Find section is empty!");
+                throw nullFind;
+            }
+        } 
+        catch (NullFindSection err){
+            writeToFile("Find section is empty!");
+            closeFile();
             err.printStackTrace();
+            System.exit(1);
         }
-        System.out.println("----------^^^^^^^-----------");
+
         for (int i = 0; i < findSectionLines.size(); i++){
-            // #TODO: raise error if there are more than two elements in one line
             splitedLine = findSectionLines.get(i).split(" ", 0);
+
+            // check if more or less than 2 nodes are inserted
+            try{
+                if (splitedLine.length != 2){
+                    NotExactElements nExactExc = new NotExactElements("There must be exactly 2 nodes - " 
+                                                                    + splitedLine.length + " elements inserted");
+                    throw nExactExc;
+                }
+            } 
+            catch (NotExactElements err){
+                writeToFile("There must be exactly 2 nodes - " + splitedLine.length + " elements inserted");
+                closeFile();
+                err.printStackTrace();
+                System.exit(1);
+            }
+            
             inode = splitedLine[0];
             fnode = splitedLine[1];
             inodeIndx = nodesName.indexOf(inode);
             fnodeIndx = nodesName.indexOf(fnode);
 
-            ArrayList<Node> path = T.GetPath(nodesPtr[inodeIndx], nodesPtr[fnodeIndx]);
+            // It's possible that there is no such nodes in the tree to be found
+            ArrayList<Node> path = null;
+            try{
+                path = T.GetPath(nodesPtr[inodeIndx], nodesPtr[fnodeIndx]);
+            }
+            catch (ArrayIndexOutOfBoundsException err){
+                writeToFile("One or more nodes in find section cannot be found in the tree");
+                closeFile();
+                err.printStackTrace();
+                System.exit(1);
+            }
 
             if (path == null)
-                try{
-                    filerWriter.write("No Path \n");
-                }
-                catch (IOException err){
-                    err.printStackTrace();
-                }
-            else
+                writeToFile("No path");
+            else{
                 // write to found path to file
                 for (int j = 0; j < path.size(); j++){
                     nodeOnPathIndx = getNodeIndex(path.get(j));
-                    try{
-                        filerWriter.write(nodesName.get(nodeOnPathIndx)+"\n");
-                    }
-                    catch (IOException err){
-                        err.printStackTrace();
-                    }
+                    writeToFile(nodesName.get(nodeOnPathIndx));
                 }
+            }
             // write this line to seperate outputs
-            try{
-                filerWriter.write("------------------\n");
-            }
-            catch (IOException err){
-                err.printStackTrace();
-            }
+            writeToFile("--------------------");
+                
         }
-        try{
-            filerWriter.close();
-        }
-        catch (IOException err){
-            err.printStackTrace();
-        }
+        closeFile();
     }
 
     // get index of a given node in nodes array
@@ -145,7 +179,6 @@ public class FileHandler {
             sNodeIndx = nodesName.indexOf(sNode);
             eNodeIndx = nodesName.indexOf(eNode);
             
-            //#TODO: Raise exception if indexOf returned zero
             edgesPtr[i].Setter(nodesPtr[sNodeIndx],
                                nodesPtr[eNodeIndx]);
             // then add this edge to both nodes
@@ -163,9 +196,23 @@ public class FileHandler {
         String[] splitedLine;
         for (int i = 0; i < edgeSectionLines.size(); i++){
             splitedLine = edgeSectionLines.get(i).split(" ", 0);
-            // check if each node exists in the array and if not, add it
 
-            //#TODO: Raise exception when one line dosen't have exactly two nodes
+            // check if more or less than 2 nodes are inserted
+            try{
+                if (splitedLine.length != 2){
+                    NotExactElements nExactExc = new NotExactElements("There must be exactly 2 nodes - " 
+                                                                    + splitedLine.length + " elements inserted");
+                    throw nExactExc;
+                }
+            } 
+            catch (NotExactElements err){
+                writeToFile("There must be exactly 2 nodes - " + splitedLine.length + " elements inserted");
+                closeFile();
+                err.printStackTrace();
+                System.exit(1);
+            }
+
+            // check if each node exists in the array and if not, add it
             if (isElementExist(splitedLine[0], nodesName) == false)
                 nodesName.add(splitedLine[0]);
             if (isElementExist(splitedLine[1], nodesName) == false)
@@ -173,10 +220,8 @@ public class FileHandler {
         }
         // Now init nodes pointer itself 
         nodesPtr = new Node[nodesName.size()];
-        for (int i = 0; i < nodesName.size(); i++){
+        for (int i = 0; i < nodesName.size(); i++)
             nodesPtr[i] = new Node();
-            // System.out.println(nodesPtr[i] + " " + nodesName.get(i));
-        }
     }
 
     private void constructEdges(){
@@ -205,4 +250,23 @@ public class FileHandler {
             System.out.println(findSectionLines.get(i));
     }
 
+    private void writeToFile(String text){
+        try{
+            filerWriter.write(text+"\n");
+        }
+        catch (IOException err){
+            System.out.println("Unable to write to file!");
+            err.printStackTrace();
+            System.exit(1);
+        }
+    }
+
+    private void closeFile(){
+        try {
+            filerWriter.close();
+        } catch (IOException e) {
+            System.out.println("Unable to close file!");
+            e.printStackTrace();
+        }
+    }
 }

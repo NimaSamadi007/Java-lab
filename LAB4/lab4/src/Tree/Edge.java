@@ -1,3 +1,4 @@
+package Tree;
 
 abstract public class Edge {
     Node[] Node = new Node[2];

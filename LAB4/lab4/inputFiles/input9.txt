@@ -1,0 +1,12 @@
+a c
+c b
+d e
+e	f
+c d
+e g
+g h
+Find
+a	 h
+h g
+c f
+f	 b

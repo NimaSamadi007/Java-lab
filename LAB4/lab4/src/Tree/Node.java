@@ -1,3 +1,4 @@
+package Tree;
 import java.util.ArrayList;
 
 public class Node {
@@ -5,12 +6,12 @@ public class Node {
     ArrayList<Edge> Edge_AL = new ArrayList<Edge>();
 
     // A method to connect a new Edge to this node
-    void AddEdge(Edge NewEdge) {
+    public void AddEdge(Edge NewEdge) {
         Edge_AL.add(NewEdge);
     }
 
     // A method to remove an Edge to this node
-    void RemoveEdge(Edge NewEdge) {
+    public void RemoveEdge(Edge NewEdge) {
         if(Edge_AL.contains(NewEdge)) {
             Edge_AL.remove(NewEdge);
         }
@@ -19,7 +20,7 @@ public class Node {
         }
     }
 
-    int GetInDegree() {
+    public int GetInDegree() {
         int InDeg = 0;
         for(int i = 0; i < Edge_AL.size(); i++) {
             if (Edge_AL.get(i).EdgeType == 'D') {
@@ -37,7 +38,7 @@ public class Node {
         return InDeg;
     }
 
-    int GetOutDegree() {
+    public int GetOutDegree() {
         int OutDeg = 0;
         for(int i = 0; i < Edge_AL.size(); i++) {
             if (Edge_AL.get(i).EdgeType == 'D') {
@@ -56,7 +57,7 @@ public class Node {
     }
 
     // Returns all currently connected Edges
-    ArrayList<Edge> GetEdges() {
+    public ArrayList<Edge> GetEdges() {
         return Edge_AL;
     }
 }
