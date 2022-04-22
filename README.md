@@ -49,3 +49,11 @@ Along with the give testcase, I tested the code with these two trees. Plus there
 
 |![](./Images/1.png)|![](./Images/3.png)|
 |:-------:|:-------:|
+
+Following exceptions are handled:
+
+1. No find directive written
+2. Empty find section
+3. More or less than 2 elements in fine or tree section
+4. Nodes in find section that don't exist in Tree section
+5. Unabling to write to file or read it
