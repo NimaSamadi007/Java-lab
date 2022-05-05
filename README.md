@@ -57,3 +57,51 @@ Following exceptions are handled:
 3. More or less than 2 elements in fine or tree section
 4. Nodes in find section that don't exist in Tree section
 5. Unabling to write to file or read it
+
+## LAB5:
+List :
+In Java, a list interface is an ordered collection of objects in which duplicate values can be stored.
+Since a List preserves the insertion order, it allows positional access and insertion of elements.
+List interface is implemented by the following classes:
+	1. ArrayList :
+		An ArrayList class is a resizable array, which is present in the java.util package.
+		While built-in arrays have a fixed size, ArrayLists can change their size dynamically.
+		Elements can be added and removed from an ArrayList whenever there is a need, helping
+		the user with memory management.
+
+	2. LinkedList :
+		Since a LinkedList acts as a dynamic array and we do not have to specify the size while creating it,
+		the size of the list automatically increases when we dynamically add and remove items. And also,
+		the elements are not stored in a continuous fashion. Therefore, there is no need to increase the size.
+		Internally, the LinkedList is implemented using the doubly linked list data structure. The main difference
+		between a normal linked list and a doubly LinkedList is that a doubly linked list contains an extra pointer,
+		typically called the previous pointer, together with the next pointer and data which are there in the singly
+		linked list.
+
+	3. Vector
+	4. Stack
+
+Set : It is an interface that implements the mathematical set. This interface contains the methods inherited from
+the Collection interface and adds a feature that restricts the insertion of the duplicate elements.
+There are two interfaces that extend the set implementation namely SortedSet and NavigableSet.
+
+Queue : A queue is a data structure which follows the principle of FIFO (First-In-First-Out) i.e. the elements are
+inserted at the end of the list, and are deleted from the beginning of the list. This interface is available in the
+java.util.package and extends the Collection Interface. Queue supports multiple methods, including insertion and
+deletion. The queues available in java.util.package are known as Unbounded Queues , while the queues present in the
+java.util.concurrent package are known are Bounded Queues. All queues, except the Deques, support insertion at the
+end and deletion from the front. Deques support insertion and deletion of elements at both the ends.
+
+Map : Maps are perfect to use for key-value association mapping such as dictionaries. The maps are used to perform
+lookups by keys or when someone wants to retrieve and update elements by keys. Some common scenarios are as follows:
+
+	1. A map of error codes and their descriptions.
+	2. A map of zip codes and cities.
+	3. A map of managers and employees. Each manager (key) is associated with a list of employees (value) he manages.
+	4. A map of classes and students. Each class (key) is associated with a list of students (value).
+
+A Map cannot contain duplicate keys and each key can map to at most one value. Some implementations allow null key
+and null values like the HashMap and LinkedHashMap, but some do not like the TreeMap. The order of a map depends on
+the specific implementations. For example, TreeMap and LinkedHashMap have predictable orders, while HashMap does
+not. There are two interfaces for implementing Map in java. They are Map and SortedMap, and three classes: HashMap,
+TreeMap, and LinkedHashMap.
