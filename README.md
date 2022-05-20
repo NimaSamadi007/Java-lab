@@ -116,3 +116,43 @@ and null values like the HashMap and LinkedHashMap, but some do not like the Tre
 the specific implementations. For example, TreeMap and LinkedHashMap have predictable orders, while HashMap does
 not. There are two interfaces for implementing Map in java. They are Map and SortedMap, and three classes: HashMap,
 TreeMap, and LinkedHashMap.
+
+
+## LAB6:
+Here I provide answers to questions of the race condtion section. 
+
+Race condition happens when multiple threads tries to access a shared recourse. For examples suppose that we want to add one to a variable for some specific times. If we use two thread to achieve so, one desired and possible execution is shown in this image:
+
+![](./Images/4.png)
+
+After the execution, the final value would be 2. However, programmer doesn't know how the threads would be executed (consider there is only 1 CPU core). CPU scheduling algorithm will determine which thread must be run at any time interval. With that said, you can see another possible thread execution in the following picture:
+
+![](./Images/5.png)
+
+This situation is called race condition as threads are racing each other to access and change the shared resource. By using locks we can't prevent race condition. 
+
+One possible payment vulnerability is race condition. For instance consider that you have two accounts and want to transfer money between them. In order to tansfer money, 3 things must be done:
+
+1. Check if source account has enough balance
+2. Add the money to the destination account
+3. Deduct money from source account.
+
+The correct execution of threads would be something like this:
+
+
+![](./Images/6.png)
+
+As you can see, you can't transfer extra $500 from account A (source) to account B (destination) which makes sense. 
+
+However, by exploiting race condition, one can gain infinite amount of money! Consider the following execution of threads:
+
+![](./Images/7.png)
+
+By the time the second transfer is being done, the first one isn't comleted and account A balance hasn't been updated. So in the second transfer, it seems that you have $500 in account A. While you don't and it's being transfered to account B. That's because of the fact that deduction from account A in the first transfer hasn't been done yet. So this results in extra $500 in sum of two accounts. 
+
+Yes. Redeeming one coupun multiple times looks like another payment vulnerability. You can use your discount multiple times by exploiting race condition. The way it happens is just like above case and I don't explain it again. 
+
+If you run the `inc()` function 101 times, it is possible that `Failed` message gets printed. This happens when all the threads are running sequentially and there is no race condition. Because if there is a race condition, the shared variable (`count`) is updated in the same time the other thread is updating it. So, (at least) one of the +1 operations gets lost (gets overwritten). However, most of the times this doesn't happen as it is more likely that race condition happens and `count` parameter doesn't reach 100. 
+
+The `synchroized` keyword causes `inc()` method to be run synchronously with other threads. In other words, when you use `synchroized` keyword, the execution of that function in different threads will be synchronized to each other. So, if one thread is executing `inc()` function, others cannnot call it untill the thread that is running `inc()` in first place finishes. So, this will result in eliminating race condition and all executions of `inc()` will increase `count` correctly. So, we see `Failed` message everytime we run the program. 
+
