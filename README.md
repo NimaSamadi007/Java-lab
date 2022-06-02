@@ -156,3 +156,6 @@ If you run the `inc()` function 101 times, it is possible that `Failed` message 
 
 The `synchroized` keyword causes `inc()` method to be run synchronously with other threads. In other words, when you use `synchroized` keyword, the execution of that function in different threads will be synchronized to each other. So, if one thread is executing `inc()` function, others cannnot call it untill the thread that is running `inc()` in first place finishes. So, this will result in eliminating race condition and all executions of `inc()` will increase `count` correctly. So, we see `Failed` message everytime we run the program. 
 
+## LAB7:
+
+All implementations are in the `LAB7/jaba7` directory. Some tests have been done to ensure that code works correctly. You can watch the `test.mp4` clip, located in `LAB7/jaba7` and check out results.
