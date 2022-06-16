@@ -73,8 +73,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signup_age_input"
-        app:layout_constraintVertical_bias="0.42000002" />
+        app:layout_constraintTop_toBottomOf="@+id/signup_age_input" />
 
     <RadioGroup
         android:layout_width="193dp"
@@ -90,13 +89,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:minHeight="48dp"
             android:text="Male" />
 
         <RadioButton
-            android:id="@+id/radioButton2"
+            android:id="@+id/female_gender"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:minHeight="48dp"
             android:text="Female" />
     </RadioGroup>
 

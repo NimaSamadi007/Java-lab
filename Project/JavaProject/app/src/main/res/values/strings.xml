@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">JavaProject</string>
+    <string name="app_name">Whatsapp+</string>
     <string name="server_ip_input_hint">Enter server ip</string>
     <string name="server_port_input_hint">Enter server port</string>
     <string name="signup_button_text">sign up</string>
@@ -12,5 +12,4 @@
 
     <string name="confirm_button">confirm</string>
     <string name="login_page_title">Enter your login info</string>
-
 </resources>

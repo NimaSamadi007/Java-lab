@@ -144,7 +144,7 @@ public class Client {
                 System.out.println("Enter Your Password for the groupchat : ");
                 String password = scanner.nextLine();
                 if(CheckUP(username, password, password, clientFile, "Login")) {
-                    Socket socket = new Socket("localhost", 1234);
+                    Socket socket = new Socket("192.168.1.101", 1234);
                     Client client = new Client(socket, username, password);
                     client.listenForMessage();
                     client.sendMessage();
